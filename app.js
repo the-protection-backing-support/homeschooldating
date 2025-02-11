@@ -54,3 +54,27 @@ if (signupForm) {
       });
   });
 }
+// Listen for the login form submission
+const loginForm = document.getElementById("login-form");
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // Get form values
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    // Sign in the user
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // User is logged in
+        alert("Login successful!");
+        window.location.href = "profile.html"; // Redirect to the profile or dashboard page
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+        alert(error.message);
+      });
+  });
+}
+
