@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Welcome to Your Profile</h1>
+
+  <div id="user-details">
+    <!-- This will show the user's email when logged in -->
+    <p id="user-email">Loading...</p>
+  </div>
+
+  <button id="logout-button">Log Out</button>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    // Firebase initialization
+    const firebaseConfig = {apiKey: "AIzaSyAez0UifJeP0YVQZBvE6ozLCRuS1THV4LM",
+  authDomain: "homeschooldating.firebaseapp.com",
+  projectId: "homeschooldating",
+  storageBucket: "homeschooldating.firebasestorage.app",
+  messagingSenderId: "881684032751",
+  appId: "1:881684032751:web:596a4387061a8761db7f1a",
+  measurementId: "G-2GV2QP218G"
+
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Check if the user is logged in
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is logged in, display their email
+        document.getElementById("user-email").textContent = `Welcome, ${user.email}`;
+      } else {
+        // User is not logged in, redirect to the login page
+        window.location.href = "login.html";
+      }
+    });
+
+    // Logout functionality
+    document.getElementById("logout-button").addEventListener("click", () => {
+      auth.signOut().then(() => {
+        // Redirect to login page after logging out
+        window.location.href = "login.html";
+      }).catch((error) => {
+        console.error("Error logging out:", error);
+      });
+    });
+  </script>
+</body>
+</html>
